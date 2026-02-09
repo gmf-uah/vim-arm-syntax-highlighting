@@ -82,7 +82,7 @@ syn match   armRegister         "\c\<\(r\|cp\)\([0-9]\|1[0-5]\)\(!\|\>\)"
 syn region  armMemAddr          start="\[" end="\]!\?" contains=armRegister,armNumber,armVariable transparent
 
 " Register lists - {r0-r2, lr}
-syn region  armRegisterList     start="{" end="}^\?" contains=armRegister transparent keepend
+syn region  armRegisterList     start="{" end="}\^\?" contains=armRegister transparent keepend
 
 " Numbers
 syn match   armNumber           "#\?-\?\(0x\|&\)[0-9a-fA-F_]\+\>"
