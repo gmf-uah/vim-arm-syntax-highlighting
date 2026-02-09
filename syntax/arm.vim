@@ -13,11 +13,6 @@ endif
 " Case insensitive matching for instructions
 syn case ignore
 
-" Comments - support ;, @, //, and /* */ styles
-syn match   armComment          "[;@].*$"
-syn match   armComment          "//.*$"
-syn region  armCommentBlock     start="/\*" end="\*/"
-
 " Preprocessor directives
 syn match   armPreprocessor     "^\s*[#\.]\(define\|include\|\(end\|el\|else\)\?if\|if\(def\|ndef\)\?\|else\)\>"
 
@@ -87,7 +82,7 @@ syn match   armRegister         "\c\<\(r\|cp\)\([0-9]\|1[0-5]\)\(!\|\>\)"
 syn region  armMemAddr          start="\[" end="\]!\?" contains=armRegister,armNumber,armVariable transparent
 
 " Register lists - {r0-r2, lr}
-syn region  armRegisterList     start="{" end="}\^?" contains=armRegister transparent
+syn region  armRegisterList     start="{" end="}\^\?" contains=armRegister transparent keepend
 
 " Numbers
 syn match   armNumber           "#\?-\?\(0x\|&\)[0-9a-fA-F_]\+\>"
@@ -100,6 +95,12 @@ syn match   armChar             "'\S'"
 
 " Variables and symbols - commented out as it conflicts with instructions
 " syn match   armVariable         "\(\<\|#\)-\?[a-zA-Z_][0-9a-zA-Z_]*\>"
+
+" Comments - support ;, @, //, and /* */ styles
+" Defined last to have highest priority
+syn match   armComment          "[;@].*$"
+syn match   armComment          "//.*$"
+syn region  armCommentBlock     start="/\*" end="\*/"
 
 " Define highlighting
 hi def link armComment          Comment
@@ -123,5 +124,9 @@ hi def link armChar             Character
 hi def link armVariable         Identifier
 
 let b:current_syntax = "arm"
+
+" Sync method - ensure proper highlighting when scrolling
+syn sync minlines=50
+syn sync maxlines=500
 
 " vim: ts=8 sw=2

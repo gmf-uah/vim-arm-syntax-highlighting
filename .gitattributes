@@ -1,0 +1,11 @@
+# Ensure vim script files always use LF line endings
+*.vim text eol=lf
+
+# Ensure README and documentation use LF
+*.md text eol=lf
+
+# Ensure assembly files use LF
+*.s text eol=lf
+*.S text eol=lf
+*.asm text eol=lf
+*.sx text eol=lf
