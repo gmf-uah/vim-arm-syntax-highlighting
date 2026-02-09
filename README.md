@@ -53,6 +53,41 @@ To test the syntax highlighting, open the included test file:
 vim dan-c-underwood.arm-1.7.4/test.s
 ```
 
+## Troubleshooting
+
+### Line Ending Issues on Windows
+
+If you encounter errors like:
+```
+E492: Not an editor command: ^M
+E488: Trailing characters: ^M
+E171: Missing :endif
+```
+
+This is caused by Windows-style CRLF line endings. To fix this in Vim:
+
+```vim
+:set ff=unix | %s/\r$// | w
+```
+
+Or use the command line:
+```bash
+# Using dos2unix (if available)
+dos2unix syntax/arm.vim ftdetect/arm.vim
+
+# Or using sed
+sed -i 's/\r$//' syntax/arm.vim ftdetect/arm.vim
+
+# On Windows with Git Bash
+dos2unix syntax/arm.vim ftdetect/arm.vim
+```
+
+The repository includes a `.gitattributes` file that should prevent this issue when cloning on Windows. If you still encounter problems, ensure your Git is configured properly:
+
+```bash
+git config --global core.autocrlf input
+```
+
 ## Credits
 
 This Vim syntax plugin is a port of [Dan C. Underwood's ARM syntax highlighting extension](https://github.com/dan-c-underwood/vscode-arm) for Visual Studio Code.
